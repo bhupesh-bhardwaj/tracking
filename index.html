@@ -121,6 +121,8 @@
   </div>
 
   <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec";
+
     function formatDate(isoString) {
       if (!isoString) return "";
       const date = new Date(isoString);
@@ -146,7 +148,7 @@
       id = id.toUpperCase();
       result.innerHTML = "Tracking shipment...";
 
-      fetch("YOUR_API_URL?trackingId=" + encodeURIComponent(id))
+      fetch(API_URL + "?trackingId=" + encodeURIComponent(id))
         .then(res => res.json())
         .then(data => {
           if (data.error) {
