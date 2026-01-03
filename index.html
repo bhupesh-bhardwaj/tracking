@@ -34,6 +34,7 @@
       margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      text-transform: uppercase; /* 👈 user sees uppercase */
     }
 
     button {
@@ -88,7 +89,7 @@
   </div>
 
   <script>
-    // 🔹 Convert ISO date to readable format (IST / local)
+    // 🔹 Convert ISO date to readable format
     function formatDate(isoString) {
       if (!isoString) return "";
 
@@ -105,7 +106,7 @@
     }
 
     function track() {
-      const id = document.getElementById("trackingId").value.trim();
+      let id = document.getElementById("trackingId").value.trim();
       const result = document.getElementById("result");
 
       if (!id) {
@@ -113,9 +114,12 @@
         return;
       }
 
+      // ✅ FORCE UPPERCASE (KEY FIX)
+      id = id.toUpperCase();
+
       result.innerHTML = "Tracking...";
 
-      fetch("https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec?trackingId=" + encodeURIComponent(id))
+      fetch("YOUR_API_URL?trackingId=" + encodeURIComponent(id))
         .then(res => res.json())
         .then(data => {
           if (data.error) {
@@ -135,7 +139,7 @@
           data.history.forEach(h => {
             html += `
               <li>
-                ${formatDate(h.updatedAt)} – 
+                ${formatDate(h.updatedAt)} –
                 ${h.status} (${h.location})
               </li>
             `;
