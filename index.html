@@ -119,7 +119,7 @@
 
       result.innerHTML = "Tracking...";
 
-      fetch("YOUR_API_URL?trackingId=" + encodeURIComponent(id))
+      fetch("https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec?trackingId=" + encodeURIComponent(id))
         .then(res => res.json())
         .then(data => {
           if (data.error) {
