@@ -4,6 +4,21 @@
   <title>Super Air Express</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+  <script>
+function goToTrack() {
+  const id = document
+    .getElementById("homeTrackingId")
+    .value
+    .trim()
+    .toUpperCase();
+  if (!id) {
+    alert("Please enter a Tracking ID");
+    return;
+  }
+  window.location.href = "track.html?id=" + encodeURIComponent(id);
+}
+</script>
+
 <body>
 
 <header>
@@ -26,8 +41,13 @@
 
 <div class="track-box">
   <h2>Track Your Shipment</h2>
-  <input type="text" placeholder="Enter Tracking ID">
-  <a href="track.html"><button>Track</button></a>
+  <input
+  type="text"
+  id="homeTrackingId"
+  placeholder="Enter Tracking ID"
+  style="text-transform: uppercase;"
+>
+<button onclick="goToTrack()">Track</button>
 </div>
 
 <div class="container">
