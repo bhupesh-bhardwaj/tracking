@@ -61,7 +61,10 @@ function getProgress(status) {
   if (status.includes("deliver")) return 100;
   return 10;
 }
-
+function getTrackingIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
+}
 function track() {
   const input = document.getElementById("trackingId");
   const result = document.getElementById("result");
@@ -126,6 +129,15 @@ function track() {
       result.innerHTML = "<b>Error fetching tracking details</b>";
     });
 }
+  window.onload = function () {
+  const idFromURL = getTrackingIdFromURL();
+
+  if (idFromURL) {
+    const input = document.getElementById("trackingId");
+    input.value = idFromURL.toUpperCase();
+    track(); // auto start tracking
+  }
+};
 </script>
 
 </body>
