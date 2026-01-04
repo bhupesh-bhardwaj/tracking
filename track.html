@@ -28,61 +28,88 @@
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec";
 
-function formatDate(d) {
-  if (!d) return "";
-  return new Date(d).toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true
-  });
+function getProgressPercent(status) {
+  status = status.toLowerCase();
+  if (status.includes("picked")) return 25;
+  if (status.includes("transit")) return 50;
+  if (status.includes("out")) return 75;
+  if (status.includes("deliver")) return 100;
+  return 10;
 }
 
 function track() {
-  const input = document.getElementById("trackingId");
+  const id = document.getElementById("trackingId").value.trim().toUpperCase();
   const result = document.getElementById("result");
 
-  if (!input || !result) {
-    alert("Page not loaded correctly");
-    return;
-  }
-
-  const id = input.value.trim().toUpperCase();
-
   if (!id) {
-    result.innerHTML = "<b>Please enter a Tracking ID</b>";
+    result.innerHTML = "<b>Please enter Tracking ID</b>";
     return;
   }
 
   result.innerHTML = "Fetching tracking details...";
 
   fetch(API_URL + "?trackingId=" + encodeURIComponent(id))
-    .then(response => response.json())
+    .then(r => r.json())
     .then(data => {
       if (data.error) {
         result.innerHTML = "<b>" + data.error + "</b>";
         return;
       }
 
+      const status = data.shipment.currentStatus;
+      const location = data.shipment.currentLocation;
+      const updated = data.shipment.lastUpdated;
+      const progress = getProgressPercent(status);
+
       let html = `
-        <h3>Status: ${data.shipment.currentStatus}</h3>
-        <p><b>Location:</b> ${data.shipment.currentLocation}</p>
-        <p><b>Last Updated:</b> ${formatDate(data.shipment.lastUpdated)}</p>
-        <h4>Tracking History</h4>
-        <ul>
+        <div class="fade-in slide-up">
+
+          <h3>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M21 8V7l-3-3H3v13h18v-2M3 5h14v3H3V5m0 5h18v5H3v-5z"/>
+            </svg>
+            Status: ${status}
+          </h3>
+
+          <p>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/>
+            </svg>
+            <b>Location:</b> ${location}
+          </p>
+
+          <p>
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm1 11h5v2h-7V6h2z"/>
+            </svg>
+            <b>Last Updated:</b> ${updated}
+          </p>
+
+          <div class="progress-container">
+            <div class="progress-steps">
+              <span>Picked</span>
+              <span>Transit</span>
+              <span>Out</span>
+              <span>Delivered</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:${progress}%"></div>
+            </div>
+          </div>
+
+          <h4>Tracking History</h4>
+          <ul>
       `;
 
       data.history.forEach(h => {
-        html += `<li>${formatDate(h.updatedAt)} – ${h.status} (${h.location})</li>`;
+        html += `<li>${h.updatedAt} – ${h.status} (${h.location})</li>`;
       });
 
-      html += "</ul>";
+      html += "</ul></div>";
+
       result.innerHTML = html;
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
       result.innerHTML = "<b>Error fetching tracking details</b>";
     });
 }
