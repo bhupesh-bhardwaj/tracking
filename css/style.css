@@ -145,3 +145,41 @@ footer {
   padding: 20px;
   font-size: 13px;
 }
+/* Mobile fixes */
+@media (max-width: 768px) {
+
+  /* Hero section */
+  .page-hero {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .page-hero h1 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .page-hero p {
+    font-size: 14px;
+  }
+
+  /* Tracking box */
+  .track-box {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .track-box input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .track-box button {
+    width: 100%;
+  }
+
+  /* Services grid */
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
