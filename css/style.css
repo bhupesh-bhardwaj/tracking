@@ -1,4 +1,4 @@
-body {
+=body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f4f6f8;
@@ -270,5 +270,11 @@ footer {
   /* Stop desktop overlap illusion on mobile */
   body > .track-box {
     margin-top: 12px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    display: none !important;
   }
 }
