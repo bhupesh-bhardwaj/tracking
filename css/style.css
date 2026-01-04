@@ -1,4 +1,4 @@
-=body {
+body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f4f6f8;
@@ -146,17 +146,18 @@ footer {
   font-size: 13px;
 }
 
-/* ========================= */
-/* ===== MOBILE FIXES ====== */
-/* ========================= */
+/* ================================================= */
+/* ================= MOBILE FIXES ================== */
+/* ================================================= */
 
 @media (max-width: 768px) {
 
-  /* Header / Nav */
+  /* Stack navigation */
   nav {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    padding: 12px 14px;
   }
 
   nav a {
@@ -165,27 +166,16 @@ footer {
     font-size: 14px;
   }
 
-  /* Hero section (reduce height) */
-  .hero,
-  .page-hero {
-    padding: 28px 16px;
+  /* Remove HERO on HOME page completely */
+  header + .hero,
+  header + .page-hero {
+    display: none !important;
   }
 
-  .hero h1,
-  .page-hero h1 {
-    font-size: 20px;
-    line-height: 1.25;
-  }
-
-  .hero p,
-  .page-hero p {
-    font-size: 13px;
-  }
-
-  /* Tracking box (remove negative margin) */
+  /* Tracking box becomes primary focus */
   .track-box {
-    margin: 16px;
-    padding: 20px;
+    margin: 16px !important;
+    padding: 20px !important;
   }
 
   .track-box input,
@@ -194,87 +184,15 @@ footer {
     margin: 0 0 10px 0;
   }
 
-  /* Cards / Services stack */
+  /* Stack cards/services */
   .cards,
   .info-cards {
     grid-template-columns: 1fr;
   }
 
-  /* Containers spacing */
+  /* Reduce vertical spacing */
   .container,
   .section {
     margin: 24px auto;
-  }
-}
-/* ========================= */
-/* FORCE MOBILE COMPRESSION */
-/* ========================= */
-
-@media (max-width: 768px) {
-
-  /* Kill any desktop-style hero height illusion */
-  .hero,
-  .page-hero {
-    padding: 18px 14px !important;
-  }
-
-  .hero h1,
-  .page-hero h1 {
-    font-size: 18px !important;
-    margin-bottom: 6px;
-  }
-
-  .hero p,
-  .page-hero p {
-    font-size: 12px !important;
-    line-height: 1.4;
-  }
-
-  /* Remove desktop overlap behavior completely */
-  .track-box {
-    margin: 12px !important;
-    padding: 18px !important;
-  }
-
-  /* Ensure immediate scroll content */
-  .container,
-  .section {
-    margin-top: 20px !important;
-  }
-
-  /* Reduce header vertical footprint */
-  nav {
-    padding: 12px 14px !important;
-  }
-}
-/* =============================== */
-/* HOME PAGE MOBILE OPTIMIZATION */
-/* =============================== */
-
-@media (max-width: 768px) {
-
-  /* Collapse home hero */
-  body > .hero {
-    padding: 16px 14px !important;
-  }
-
-  body > .hero h1 {
-    font-size: 18px !important;
-    margin-bottom: 4px;
-  }
-
-  body > .hero p {
-    font-size: 12px !important;
-  }
-
-  /* Stop desktop overlap illusion on mobile */
-  body > .track-box {
-    margin-top: 12px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    display: none !important;
   }
 }
