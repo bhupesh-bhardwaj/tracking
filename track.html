@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Track Shipment | Super Air Express</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== HEADER / MENU ===== -->
 <header>
   <nav>
     <div class="brand">Super Air Express</div>
@@ -12,39 +20,40 @@
     </div>
   </nav>
 </header>
-<head>
-  <title>Track Shipment | Super Air Express</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+
+<!-- ===== HERO ===== -->
 <div class="page-hero">
   <h1>Track Your Shipment</h1>
-  <p>Real-time tracking for your consignments across India</p>
+  <p>Get real-time tracking updates for your consignments</p>
 </div>
 
-<div class="container">
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="track.html">Track</a>
-    <a href="services.html">Services</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<!-- ===== TRACKING BOX ===== -->
+<div class="track-box">
+  <h2>Enter Tracking ID</h2>
 
-  <h2>Track Your Shipment</h2>
-
-  <input type="text" id="trackingId" placeholder="Enter Tracking ID" style="text-transform:uppercase">
+  <input
+    type="text"
+    id="trackingId"
+    placeholder="Enter Tracking ID"
+    style="text-transform: uppercase;"
+  >
   <button onclick="track()">Track</button>
 
-  <div id="result"></div>
-
-  <div class="footer">Super Air Express</div>
+  <div id="result" style="margin-top:20px;"></div>
 </div>
 
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec";
+<!-- ===== FOOTER ===== -->
+<footer>
+  © Super Air Express • Fast • Secure • Reliable
+</footer>
 
-function getProgressPercent(status) {
+<!-- ===== SCRIPT ===== -->
+<script>
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec";
+
+/* Map status → progress */
+function getProgress(status) {
   status = status.toLowerCase();
   if (status.includes("picked")) return 25;
   if (status.includes("transit")) return 50;
@@ -54,62 +63,47 @@ function getProgressPercent(status) {
 }
 
 function track() {
-  const id = document.getElementById("trackingId").value.trim().toUpperCase();
+  const input = document.getElementById("trackingId");
   const result = document.getElementById("result");
 
+  const id = input.value.trim().toUpperCase();
   if (!id) {
-    result.innerHTML = "<b>Please enter Tracking ID</b>";
+    result.innerHTML = "<b>Please enter a Tracking ID</b>";
     return;
   }
 
   result.innerHTML = "Fetching tracking details...";
 
   fetch(API_URL + "?trackingId=" + encodeURIComponent(id))
-    .then(r => r.json())
+    .then(res => res.json())
     .then(data => {
       if (data.error) {
         result.innerHTML = "<b>" + data.error + "</b>";
         return;
       }
 
-      const status = data.shipment.currentStatus;
-      const location = data.shipment.currentLocation;
-      const updated = data.shipment.lastUpdated;
-      const progress = getProgressPercent(status);
+      const progress = getProgress(data.shipment.currentStatus);
 
       let html = `
-        <div class="fade-in slide-up">
+        <div class="card slide-up fade-in">
+          <h3>📦 Status: ${data.shipment.currentStatus}</h3>
+          <p>📍 <b>Current Location:</b> ${data.shipment.currentLocation}</p>
+          <p>⏱ <b>Last Updated:</b> ${data.shipment.lastUpdated}</p>
 
-          <h3>
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M21 8V7l-3-3H3v13h18v-2M3 5h14v3H3V5m0 5h18v5H3v-5z"/>
-            </svg>
-            Status: ${status}
-          </h3>
-
-          <p>
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/>
-            </svg>
-            <b>Location:</b> ${location}
-          </p>
-
-          <p>
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm1 11h5v2h-7V6h2z"/>
-            </svg>
-            <b>Last Updated:</b> ${updated}
-          </p>
-
-          <div class="progress-container">
-            <div class="progress-steps">
+          <div style="margin:20px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:12px;">
               <span>Picked</span>
               <span>Transit</span>
               <span>Out</span>
               <span>Delivered</span>
             </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width:${progress}%"></div>
+            <div style="height:8px; background:#e0e0e0; border-radius:6px; overflow:hidden;">
+              <div style="
+                height:100%;
+                width:${progress}%;
+                background:linear-gradient(90deg,#0078d7,#00b4ff);
+                transition:width 0.6s ease;">
+              </div>
             </div>
           </div>
 
@@ -121,7 +115,10 @@ function track() {
         html += `<li>${h.updatedAt} – ${h.status} (${h.location})</li>`;
       });
 
-      html += "</ul></div>";
+      html += `
+          </ul>
+        </div>
+      `;
 
       result.innerHTML = html;
     })
