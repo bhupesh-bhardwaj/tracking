@@ -206,3 +206,44 @@ footer {
     margin: 24px auto;
   }
 }
+/* ========================= */
+/* FORCE MOBILE COMPRESSION */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  /* Kill any desktop-style hero height illusion */
+  .hero,
+  .page-hero {
+    padding: 18px 14px !important;
+  }
+
+  .hero h1,
+  .page-hero h1 {
+    font-size: 18px !important;
+    margin-bottom: 6px;
+  }
+
+  .hero p,
+  .page-hero p {
+    font-size: 12px !important;
+    line-height: 1.4;
+  }
+
+  /* Remove desktop overlap behavior completely */
+  .track-box {
+    margin: 12px !important;
+    padding: 18px !important;
+  }
+
+  /* Ensure immediate scroll content */
+  .container,
+  .section {
+    margin-top: 20px !important;
+  }
+
+  /* Reduce header vertical footprint */
+  nav {
+    padding: 12px 14px !important;
+  }
+}
