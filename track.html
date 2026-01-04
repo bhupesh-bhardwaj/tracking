@@ -49,6 +49,7 @@
 
 <!-- ===== SCRIPT ===== -->
 <script>
+/* Format date/time to IST */
 function formatIST(dateString) {
   return new Date(dateString).toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -125,9 +126,8 @@ function track() {
       `;
 
       data.history.forEach(h => {
-  html += `<li>${formatIST(h.updatedAt)} – ${h.status} (${h.location})</li>`;
-});
-
+        html += `<li>${formatIST(h.updatedAt)} – ${h.status} (${h.location})</li>`;
+      });
 
       html += `
           </ul>
@@ -150,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("trackingId");
     input.value = idFromURL.toUpperCase();
 
-    // ensure everything is ready
     setTimeout(() => {
       track();
     }, 100);
