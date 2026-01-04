@@ -5,15 +5,19 @@ body {
   color: #333;
 }
 
+/* ===== Header & Navigation ===== */
 header {
   background: #0057b8;
   color: white;
-  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav {
   max-width: 1100px;
   margin: auto;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,29 +39,42 @@ nav a:hover {
   text-decoration: underline;
 }
 
-.hero {
+/* ===== Hero Sections ===== */
+.hero,
+.page-hero {
   background: linear-gradient(135deg, #0057b8, #0078d7);
   color: white;
   padding: 60px 20px;
   text-align: center;
 }
 
-.hero h1 {
+.hero h1,
+.page-hero h1 {
   font-size: 36px;
   margin-bottom: 10px;
 }
 
-.hero p {
+.hero p,
+.page-hero p {
   font-size: 18px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
+/* ===== Containers ===== */
+.container,
+.section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ===== Tracking Box ===== */
 .track-box {
   background: white;
-  max-width: 700px;
+  max-width: 750px;
   margin: -40px auto 40px;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
@@ -85,129 +102,15 @@ nav a:hover {
   background: #005fa3;
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-}
-
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.card h3 {
-  margin-top: 0;
-}
-
-footer {
-  background: #222;
-  color: #aaa;
-  text-align: center;
-  padding: 20px;
-  font-size: 13px;
-}
-
-/* ===== Animations ===== */
-.fade-in {
-  animation: fadeIn 0.6s ease-in-out;
-}
-
-.slide-up {
-  animation: slideUp 0.6s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* ===== Status Icons ===== */
-.icon {
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-  margin-right: 6px;
-  fill: #0078d7;
-}
-
-/* ===== Progress Bar ===== */
-.progress-container {
-  margin: 20px 0;
-}
-
-.progress-steps {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-.progress-bar {
-  height: 8px;
-  background: #e0e0e0;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #0078d7, #00b4ff);
-  transition: width 0.6s ease;
-}
-
-/* ===== Page Hero ===== */
-.page-hero {
-  background: linear-gradient(135deg, #0057b8, #0078d7);
-  color: white;
-  padding: 50px 20px;
-  text-align: center;
-}
-
-.page-hero h1 {
-  margin: 0;
-  font-size: 34px;
-}
-
-.page-hero p {
-  margin-top: 10px;
-  font-size: 17px;
-  opacity: 0.95;
-}
-
-/* ===== Content Sections ===== */
-.section {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.section-title {
-  font-size: 26px;
-  margin-bottom: 20px;
-}
-
-/* ===== Info Cards ===== */
+/* ===== Cards ===== */
+.cards,
 .info-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
 }
 
+.card,
 .info-card {
   background: white;
   padding: 25px;
@@ -216,23 +119,29 @@ footer {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.card:hover,
 .info-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* ===== CTA Strip ===== */
+/* ===== CTA ===== */
 .cta-strip {
-  background: #f0f6ff;
-  padding: 40px 20px;
+  background: #eef4ff;
+  padding: 50px 20px;
   text-align: center;
 }
 
-.cta-strip h2 {
-  margin-bottom: 15px;
+.cta-strip button {
+  padding: 14px 28px;
+  font-size: 16px;
 }
 
-.cta-strip button {
-  padding: 14px 26px;
-  font-size: 16px;
+/* ===== Footer ===== */
+footer {
+  background: #222;
+  color: #aaa;
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
 }
