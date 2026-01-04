@@ -24,7 +24,7 @@
 <!-- ===== HERO ===== -->
 <div class="page-hero">
   <h1>Track Your Shipment</h1>
-  <p>Get real-time tracking updates for your consignments</p>
+  <p>Get real-time updates for your consignments</p>
 </div>
 
 <!-- ===== TRACKING BOX ===== -->
@@ -52,7 +52,7 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxAiGwv_Bs9-FMw5xaG183Ug3rQwJSCRkgh81-wIhSFFrdOAUhwChfyd002EBebb1v9xA/exec";
 
-/* Map status → progress */
+/* Status → progress */
 function getProgress(status) {
   status = status.toLowerCase();
   if (status.includes("picked")) return 25;
@@ -61,10 +61,8 @@ function getProgress(status) {
   if (status.includes("deliver")) return 100;
   return 10;
 }
-function getTrackingIdFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("id");
-}
+
+/* MAIN TRACK FUNCTION */
 function track() {
   const input = document.getElementById("trackingId");
   const result = document.getElementById("result");
@@ -129,15 +127,22 @@ function track() {
       result.innerHTML = "<b>Error fetching tracking details</b>";
     });
 }
-  window.onload = function () {
-  const idFromURL = getTrackingIdFromURL();
+
+/* AUTO-TRACK WHEN ID IS IN URL */
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const idFromURL = params.get("id");
 
   if (idFromURL) {
     const input = document.getElementById("trackingId");
     input.value = idFromURL.toUpperCase();
-    track(); // auto start tracking
+
+    // ensure everything is ready
+    setTimeout(() => {
+      track();
+    }, 100);
   }
-};
+});
 </script>
 
 </body>
