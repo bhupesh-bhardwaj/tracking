@@ -247,3 +247,28 @@ footer {
     padding: 12px 14px !important;
   }
 }
+/* =============================== */
+/* HOME PAGE MOBILE OPTIMIZATION */
+/* =============================== */
+
+@media (max-width: 768px) {
+
+  /* Collapse home hero */
+  body > .hero {
+    padding: 16px 14px !important;
+  }
+
+  body > .hero h1 {
+    font-size: 18px !important;
+    margin-bottom: 4px;
+  }
+
+  body > .hero p {
+    font-size: 12px !important;
+  }
+
+  /* Stop desktop overlap illusion on mobile */
+  body > .track-box {
+    margin-top: 12px !important;
+  }
+}
